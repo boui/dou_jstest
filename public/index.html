@@ -1,0 +1,43 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>My AngularJS App</title>
+
+    <link rel="stylesheet" href="css/app.css">
+    <link rel="stylesheet" href="css/growl.css">
+    <link rel="stylesheet" href="css/bootstrap.css" rel="stylesheet">
+
+    <!-- from vendors-->
+    <!--<script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>-->
+    <!--<script src="//netdna.bootstrapcdn.com/bootstrap/3.0.0/js/bootstrap.min.js"></script>-->
+    <script src="js/vendor/angular.js"></script>
+    <script src="js/vendor/underscore.js"></script>
+
+    <!--application specific-->
+    <script src="js/app.js"></script>
+    <script src="js/filters.js"></script>
+    <script src="js/util/growl.js"></script>
+    <script src="js/util/services.js"></script>
+
+    <script src="js/contacts/directives.js"></script>
+    <script src="js/contacts/controllers.js"></script>
+
+    <script src="js/search/directives.js"></script>
+</head>
+<body >
+
+<div class="container" ng-app="contactsApp">
+    <div class="row">
+        <span class="span12">
+            <span contact-list>
+            </span>
+        </span>
+    </div>
+</div>
+
+<footer>
+
+</footer>
+</body>
+</html>

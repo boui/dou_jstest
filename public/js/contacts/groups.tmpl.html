@@ -1,0 +1,17 @@
+
+<div class="container">
+    <div class="row">
+        <span class="span6">
+            <div class="btn-toolbar">
+
+                <label ng-repeat="group in allGroups"
+                        ng-class="{'btn':true, 'btn-large':true, 'btn-info':group.active}"
+                        ng-click="selectGroup(group)">
+                    {{ group.title }}</label>
+            </div>
+        </span>
+    </div>
+</div>
+
+
+
