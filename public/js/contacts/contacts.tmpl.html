@@ -1,13 +1,14 @@
-<div class="row contacts-container" ng-controller="DetailsCtrl">
+<div class="row" ng-controller="DetailsCtrl">
     <div class="container">
         <div class="row">
-            <div search-contact></div>
-            <div class="pull-right" groups-list></div>
+            <span search-contact class="pull-left span6"></span>
+            <span class=" span6 pull-right" groups-list></span>
         </div>
         <div class="row">
 
         <span class="span6">
-            <span ng-repeat="contact in allContacts | inActiveGroups:allGroups | validDueToSearchInput:searchText">
+            <span
+  ng-repeat="contact in allContacts | inActiveGroups:allGroups:activeContact:hideDetails:showDetails | validDueToSearchInput:searchText:activeContact:hideDetails:showDetails" >
                     <span ng-class="{'unvisible':showContact()}">
                         <a href="#/" ng-click="showDetails(contact)">
                             <h5 class="span6" ng-bind="contact.name"></h5>
@@ -16,7 +17,7 @@
             </span>
         </span>
                    <span class="span6">
-                        <div class="container">
+                        <div class="container" ng-show="!!activeContact">
                             <div class="row">
                                 <h3 class="span6">{{ activeContact.name }}</h3>
                             </div>
@@ -26,6 +27,15 @@
                             <div class="row" ng-repeat="phone in activeContact.contacts.phones">
                                 <span class="span2">{{ phone.title }}</span>
                                 <span class="span2">{{ phone.number }}</span>
+                            </div>
+                            <div class="row">
+                                <span class="span6" >
+                                    <h5>Contact is in following groups:</h5>
+                                </span>
+                            </div>
+                            <div class="row" ng-repeat="group in activeContact.groups">
+
+                                <span class="span2">{{ group.title }}</span>
                             </div>
                         </div>
                        </span>
