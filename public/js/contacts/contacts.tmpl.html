@@ -2,16 +2,27 @@
     <div class="container">
         <div class="row">
             <span search-contact class="pull-left span6"></span>
-
             <span class=" span6 pull-right" groups-list>
             </span>
+        </div>
+        <div class="row">
+            <button ng-click="addContact()" class="btn btn-success btn-small">
+                <i class="icon-plus"></i>
+            </button>
         </div>
         <div class="row">
             <span class="span3 pull-right">
             <button class="btn-success btn btn-medium" ng-click="updateContactsMode()" ng-show="!!activeContact">
                 <span ng-show="editContactsMode"><i class="icon-edit"></i></span>
-                <span ng-hide="editContactsMode"><i class="icon-ok-sign"></i>Save</span>
+                <span ng-hide="editContactsMode"><i class="icon-step-backward"></i></span>
             </button>
+                <button class="btn btn-success" ng-hide="editContactsMode" ng-click="saveContact(activeContact)">
+                    <i class="icon-book"></i>
+                </button>
+                <button class="btn btn-danger" ng-hide="editContactsMode" ng-click="deleteContact(activeContact)">
+                    <i class="icon-trash"></i>
+                </button>
+
                 </span>
         </div>
         <div class="row ">
@@ -47,9 +58,13 @@
     <div class="row">
         <img ng-src="{{ activeContact.photoUrl }}" class="span1"/>
     </div>
-    <div class="row" ng-repeat="phone in activeContact.contacts.phones">
-        <span class="span2">{{ phone.title }}</span>
-        <span class="span2">{{ phone.number }}</span>
+    <div class="row">
+        <span class="span2"><h5>Email:</h5></span>
+        <span class="span2">{{activeContact.email}}</span>
+    </div>
+    <div class="row">
+        <span class="span2"><h5>Phone number:</h5></span>
+        <span class="span2">{{activeContact.phone}}</span>
     </div>
     <div class="row">
      <span class="span6">
@@ -70,25 +85,37 @@
         <span class="span1"><img ng-src="{{ activeContact.photoUrl }}" class="span1"/></span>
         <span class="span5"><button ng-click="browse()">Change photo</button></span>
     </div>
-    <div class="row" ng-repeat="phone in activeContact.contacts.phones">
-        <span class="span2">{{ phone.title }}</span>
-        <span class="span2">
-        <input type="text" ng-model="phone.number" placeholder="+380501115533"/>
-            </span>
+    <div class="row">
+        <span class="span2"><h5>Email:</h5></span>
+        <input type="text" ng-model="activeContact.email" placeholder="trololo@gmail.com"/>
+    </div>
+    <div class="row">
+        <span class="span2"><h5>Phone number:</h5></span>
+        <input type="text" ng-model="activeContact.phone" placeholder="+380501115533"/>
     </div>
     <div class="row">
         <span class="span6">
             <h5>Contact is in following groups:</h5>
         </span>
     </div>
-    <div class="row" ng-repeat="group in activeContact.groups">
-                  <span class="btn-group">
+    <div class="row">
+        <span class="controls-row">
+
+                <span class="btn-group" ng-repeat="group in activeContact.groups">
                       <button class="btn">{{ group.title }}</button>
                       <button class="btn btn-danger" ng-click="removeFromGroup(group)">
-                            <i class="icon-ban-circle" ></i>
+                          <i class="icon-ban-circle"></i>
                       </button>
-                  </span>
+                </span>
+            </span>
 
+    </div>
+    <div class="row">
+        <h5>Add contact to group:</h5>
+            <span class="btn-group" ng-repeat="group in allGroups | notAdded:activeContact.groups">
+                      <button class="btn" ng-click="addToGroup(group)">{{ group.title }}</button>
+                </span>
+        </span>
     </div>
 </script>
 

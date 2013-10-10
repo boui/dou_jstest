@@ -45,14 +45,8 @@ contactsModule.controller('ContactsCtrl', function ($scope) {
             photoUrl: 'http://m3.c.lnkd.licdn.com/mpr/mpr/shrink_80_80/p/7/000/1fb/091/15b5b3f.jpg',
             groups: [{title: 'work', id: 2, active: false}],
             contacts: {
-                gmail: [
-                    'vasya@gmail.com'
-                ],
-                phones: [
-                    {title: 'mobile', number: '0978434563'},
-                    {title: 'work', number: '9389'},
-                    {title: 'etc', number: '+78'}
-                ]
+                email: 'vaider@gmail.com',
+                phone: '+380505555555'
             }
         },
         {
@@ -64,14 +58,8 @@ contactsModule.controller('ContactsCtrl', function ($scope) {
                 {title: 'love', id: 1, active: false}
             ],
             contacts: {
-                gmail: [
-                    'vasya@gmail.com'
-                ],
-                phones: [
-                    {title: 'mobile', number: '0978434563'},
-                    {title: 'work', number: ''},
-                    {title: 'etc', number: '+72'}
-                ]
+                email: 'vasya@gmail.com',
+                phone: '+380505555555'
             }
         }
     ];
@@ -81,15 +69,42 @@ contactsModule.controller('ContactsCtrl', function ($scope) {
     }
 });
 //
-contactsModule.controller('DetailsCtrl', function ($scope) {
+contactsModule.controller('DetailsCtrl', function ($scope, $rootScope) {
     $scope.activeContact = null;
-    $scope.showDetails = function (contact) {
-        $scope.activeContact = contact;
+
+    $scope.addContact = function(){
+        $scope.$parent.allContacts.unshift({name:'New User'});
+        $rootScope.editContactsMode = true;
+    }
+
+    $scope.saveContact = function(contact){
+        console.log("update server with "+angular.toJson(contact));
+        $rootScope.editContactsMode = false;
+    }
+
+    $scope.deleteContact = function(contact){
+        if($scope.$parent.allContacts.indexOf(contact)!=-1){
+            $scope.$parent.allContacts.splice($scope.$parent.allContacts.indexOf(contact),1);
+            $scope.activeContact = null
+        }
+    }
+
+    $scope.addToGroup = function(group){
+        if(!_.filter($scope.activeContact.groups, function(g){return g.id == group.id}).length){
+            $scope.activeContact.groups.unshift(group);
+        }
+    }
+
+    $scope.removeFromGroup = function(group){
+        if($scope.activeContact.groups.indexOf(group)!=-1)
+        $scope.activeContact.groups.splice($scope.activeContact.groups.indexOf(group),1);
     }
 
 
-    $scope.removeFromGroup = function(group){
-        $scope.activeContact.groups.splice($scope.activeContact.groups.indexOf(group),1);
+    $scope.unselectedGroups = null;
+
+    $scope.showDetails = function (contact) {
+        $scope.activeContact = contact;
     }
 
     $scope.hideDetails = function () {

@@ -43,3 +43,14 @@ app.filter('validDueToSearchInput', function(){
         return result;
     }
 })
+
+app.filter('notAdded', function () {
+    return function (allGroups, activeUsersGroups) {
+        var filtered =  _.filter(allGroups, function(group){
+            return !_.contains(
+                _.map(activeUsersGroups, function(g){ return g.id}),
+                    group.id);
+        })
+        return filtered;
+    }
+});
