@@ -10,19 +10,19 @@ contactsModule.controller('GroupsCtrl', function ($scope, $rootScope) {
 
     $scope.newGroup = {}
 
-    $scope.addGroup = function(title){
-        counter+=1;
-        var groupToAdd = {title:title, id:counter,active:false};
+    $scope.addGroup = function (title) {
+        counter += 1;
+        var groupToAdd = {title: title, id: counter, active: false};
         $scope.newGroup.title = "";
         $rootScope.allGroups.unshift(groupToAdd);
     }
 
-    $scope.deleteGroup = function(group){
-        $rootScope.allGroups.splice( $rootScope.allGroups.indexOf(group), 1 );
+    $scope.deleteGroup = function (group) {
+        $rootScope.allGroups.splice($rootScope.allGroups.indexOf(group), 1);
     }
 
-    $scope.saveGroup = function(group){
-        console.log("sent to server"+angular.toJson(group));
+    $scope.saveGroup = function (group) {
+        console.log("sent to server" + angular.toJson(group));
     }
 
     $rootScope.allGroups = [
@@ -33,17 +33,14 @@ contactsModule.controller('GroupsCtrl', function ($scope, $rootScope) {
 });
 
 contactsModule.controller('ContactsCtrl', function ($scope) {
-    $scope.templates = [{
-        'showContact':'show.contact.tmpl.html',
-        'editContact':'edit.contact.tmpl.html'
-    }]
-
     $scope.allContacts = [
         {
             id: 0,
             name: 'Vasya Petrov',
             photoUrl: 'http://m3.c.lnkd.licdn.com/mpr/mpr/shrink_80_80/p/7/000/1fb/091/15b5b3f.jpg',
-            groups: [{title: 'work', id: 2, active: false}],
+            groups: [
+                {title: 'work', id: 2, active: false}
+            ],
             contacts: {
                 email: 'vaider@gmail.com',
                 phone: '+380505555555'
@@ -72,32 +69,35 @@ contactsModule.controller('ContactsCtrl', function ($scope) {
 contactsModule.controller('DetailsCtrl', function ($scope, $rootScope) {
     $scope.activeContact = null;
 
-    $scope.addContact = function(){
-        $scope.$parent.allContacts.unshift({name:'New User'});
+    $scope.addContact = function () {
+        $scope.$parent.allContacts.unshift({name: 'New User'});
         $rootScope.editContactsMode = true;
     }
 
-    $scope.saveContact = function(contact){
-        console.log("update server with "+angular.toJson(contact));
-        $rootScope.editContactsMode = false;
+    $scope.saveContact = function (contact) {
+        console.log("update server with " + angular.toJson(contact));
+        $scope.$parent.updateContactsMode()
     }
 
-    $scope.deleteContact = function(contact){
-        if($scope.$parent.allContacts.indexOf(contact)!=-1){
-            $scope.$parent.allContacts.splice($scope.$parent.allContacts.indexOf(contact),1);
+    $scope.deleteContact = function (contact) {
+        if ($scope.$parent.allContacts.indexOf(contact) != -1) {
+            $scope.$parent.allContacts.splice($scope.$parent.allContacts.indexOf(contact), 1);
             $scope.activeContact = null
         }
     }
 
-    $scope.addToGroup = function(group){
-        if(!_.filter($scope.activeContact.groups, function(g){return g.id == group.id}).length){
-            $scope.activeContact.groups.unshift(group);
+    $scope.addToGroup = function (group) {
+        if (!$scope.activeContact.groups) {
+            $scope.activeContact.groups = [];
         }
+
+        $scope.activeContact.groups.unshift(group);
+
     }
 
-    $scope.removeFromGroup = function(group){
-        if($scope.activeContact.groups.indexOf(group)!=-1)
-        $scope.activeContact.groups.splice($scope.activeContact.groups.indexOf(group),1);
+    $scope.removeFromGroup = function (group) {
+        if ($scope.activeContact.groups.indexOf(group) != -1)
+            $scope.activeContact.groups.splice($scope.activeContact.groups.indexOf(group), 1);
     }
 
 

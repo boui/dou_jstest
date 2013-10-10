@@ -1,22 +1,22 @@
-<div class="container" >
-    <div class="row">
-        <span class="span7">
-            <div class="btn-toolbar">
-
-                <div class="controls" >
-                    <button class="btn btn-medium" style="color: #149bdf" ng-click="updateGroupsMode()">
-                        <span ng-show="editGroupsMode"><i class="icon-edit"></i></span>
-                        <span ng-hide="editGroupsMode"><i class="icon-ok-sign"></i></span>
-                    </button>
+<div class="controls" >
+    <button class="btn btn-medium" style="color: #149bdf" ng-click="updateGroupsMode()">
+        <span ng-show="editGroupsMode"><i class="icon-edit"></i></span>
+        <span ng-hide="editGroupsMode"><i class="icon-ok-sign"></i></span>
+    </button>
 
                       <span class="input-append control-group " ng-hide="editGroupsMode">
 
                         <input class="form-control input-mini" type="text"placeholder="New group"
                                ng-model="newGroup.title"/>
                         <i class="icon-plus add-on btn" style="color:#149bdf"
-                            ng-click="addGroup(newGroup.title)"></i>
+                           ng-click="addGroup(newGroup.title)"></i>
                     </span>
-                </div>
+</div>
+
+<div class="container" >
+    <div class="row">
+        <span class="span5">
+            <div class="btn-toolbar">
                 <span ng-repeat="group in allGroups" class="controls-group">
 
                         <button ng-show="editGroupsMode"

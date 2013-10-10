@@ -1,26 +1,31 @@
 <div class="row" ng-controller="DetailsCtrl">
     <div class="container">
-        <div class="row">
-            <span search-contact class="pull-left span6"></span>
-            <span class=" span6 pull-right" groups-list>
+        <div class="row" style="margin-bottom: 20px">
+            <span class="span3 pull-left">
+                <img src="https://cdn1.iconfinder.com/data/icons/all_google_icons_symbols_by_carlosjj-du/128/notebook.png" class="span2"/>
             </span>
+            <span class="span6" groups-list></span>
         </div>
+
         <div class="row">
-            <button ng-click="addContact()" class="btn btn-success btn-small">
-                <i class="icon-plus"></i>
-            </button>
-        </div>
-        <div class="row">
-            <span class="span3 pull-right">
-            <button class="btn-success btn btn-medium" ng-click="updateContactsMode()" ng-show="!!activeContact">
-                <span ng-show="editContactsMode"><i class="icon-edit"></i></span>
-                <span ng-hide="editContactsMode"><i class="icon-step-backward"></i></span>
-            </button>
-                <button class="btn btn-success" ng-hide="editContactsMode" ng-click="saveContact(activeContact)">
-                    <i class="icon-book"></i>
+            <span search-contact class="span3"></span>
+
+            <span class="span3">
+                <button ng-click="addContact()" class="btn">
+                    <i class="icon-plus" style="color: #149bdf"></i>
                 </button>
-                <button class="btn btn-danger" ng-hide="editContactsMode" ng-click="deleteContact(activeContact)">
-                    <i class="icon-trash"></i>
+                <button class="btn" ng-click="updateContactsMode()" ng-show="!!activeContact">
+                    <span ng-show="editContactsMode"><i class="icon-edit" style="color: #149bdf"></i></span>
+                    <span ng-hide="editContactsMode"><i class="icon-step-backward" style="color: #149bdf"></i></span>
+                </button>
+            </span>
+            <span class="span3 btn-group">
+
+                <button class="btn add-on" ng-hide="editContactsMode" ng-click="saveContact(activeContact)">
+                    <i class="icon-book" style="color: #149bdf"></i>
+                </button>
+                <button class="btn add-on" ng-hide="editContactsMode" ng-click="deleteContact(activeContact)">
+                    <i class="icon-trash" style="color: #942a25"></i>
                 </button>
 
                 </span>
@@ -28,7 +33,7 @@
         <div class="row ">
            <span class="span6">
                 <span ng-repeat="contact in allContacts | inActiveGroups:allGroups:activeContact:hideDetails:showDetails | validDueToSearchInput:searchText:activeContact:hideDetails:showDetails">
-                    <span ng-class="{'unvisible':showContact()}">
+                    <span ng-class="{'active':isActive()}">
                         <a href="#/" ng-click="showDetails(contact)">
                             <h5 class="span6" ng-bind="contact.name"></h5>
                         </a>
