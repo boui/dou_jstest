@@ -74,6 +74,12 @@ contactsModule.controller('DetailsCtrl', function ($scope, $rootScope) {
         $rootScope.editContactsMode = true;
     }
 
+    $scope.isActive = function(id){
+        if(!!$scope.activeContact){
+            return id === $scope.activeContact.id;
+        } return false;
+    }
+
     $scope.saveContact = function (contact) {
         console.log("update server with " + angular.toJson(contact));
         $scope.$parent.updateContactsMode()

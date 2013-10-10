@@ -33,7 +33,7 @@
         <div class="row ">
            <span class="span6">
                 <span ng-repeat="contact in allContacts | inActiveGroups:allGroups:activeContact:hideDetails:showDetails | validDueToSearchInput:searchText:activeContact:hideDetails:showDetails">
-                    <span ng-class="{'active':isActive()}">
+                    <span ng-class="{'active':isActive(contact.id)}">
                         <a href="#/" ng-click="showDetails(contact)">
                             <h5 class="span6" ng-bind="contact.name"></h5>
                         </a>
@@ -58,10 +58,11 @@
 </div>
 <script type="text/ng-template" id="show.contact">
     <div class="row">
+        <span class="span2"><h5>Contact:</h5></span>
         <h3 class="span6">{{ activeContact.name }}</h3>
     </div>
     <div class="row">
-        <img ng-src="{{ activeContact.photoUrl }}" class="span1"/>
+        <!--<img ng-src="{{ activeContact.photoUrl }}" class="span1"/>-->
     </div>
     <div class="row">
         <span class="span2"><h5>Email:</h5></span>
@@ -84,11 +85,11 @@
 
 <script type="text/ng-template" id="edit.contact">
     <div class="row">
+        <span class="span2"><h5>Contact:</h5></span>
         <input type="text" ng-model="activeContact.name" placeholder="Account name"/>
     </div>
     <div class="row">
-        <span class="span1"><img ng-src="{{ activeContact.photoUrl }}" class="span1"/></span>
-        <span class="span5"><button ng-click="browse()">Change photo</button></span>
+        <!--<span class="span5"><button ng-click="browse()">Change photo</button></span>-->
     </div>
     <div class="row">
         <span class="span2"><h5>Email:</h5></span>
@@ -106,7 +107,7 @@
     <div class="row">
         <span class="controls-row">
 
-                <span class="btn-group" ng-repeat="group in activeContact.groups">
+                <span class="btn-group span2" ng-repeat="group in activeContact.groups" >
                       <button class="btn">{{ group.title }}</button>
                       <button class="btn btn-danger" ng-click="removeFromGroup(group)">
                           <i class="icon-ban-circle"></i>
@@ -116,8 +117,13 @@
 
     </div>
     <div class="row">
+        <span class="span6">
         <h5>Add contact to group:</h5>
-            <span class="btn-group" ng-repeat="group in allGroups | notAdded:activeContact.groups">
+            </span>
+        </div>
+
+    <div class="row">
+            <span class="btn-group group-info span1" ng-repeat="group in allGroups | notAdded:activeContact.groups">
                       <button class="btn" ng-click="addToGroup(group)">{{ group.title }}</button>
                 </span>
         </span>
