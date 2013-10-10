@@ -5,7 +5,10 @@ var app = angular.module('contactsApp');
 app.filter('inActiveGroups', function () {
     return function (contacts, groups, selectedContact, hideFn, showFn) {
         var activeGroups = _.filter(groups, function (item) {return item.active});
-        if (_.isEmpty(activeGroups)) return contacts;
+        if (_.isEmpty(activeGroups)){
+            if(!selectedContact) showFn(contacts[0]);
+            return contacts;
+        }
 
         var filtered = _.filter(contacts, function(c){
 
@@ -15,9 +18,9 @@ app.filter('inActiveGroups', function () {
             .length > 0
         });
 
-        var result = _.isEmpty(filtered) ? contacts:filtered;
-        if(selectedContact && !_.contains(result, selectedContact)) hideFn();
-        if(selectedContact && result.length == 1) showFn(result[0]);
+        var result = _.isEmpty(filtered) ? null:filtered;
+        if(result && !_.contains(result, selectedContact)) hideFn();
+        if(result) showFn(result[0]);
 
         return result;
     }
@@ -32,10 +35,10 @@ app.filter('validDueToSearchInput', function(){
             result = _.filter(contacts, function(c){
                 return !_.isEmpty(c.name.toUpperCase().match(patt));
             })
-        } else{ result = contacts };
+        } else {result = contacts}
 
         if(selectedContact && !_.contains(_.map(result, function(c){return c.id}), selectedContact.id)) hideFn();
-        if(result.length == 1) showFn(result[0]);
+        if(!!result && !!searchText) showFn(result[0]);
 
         return result;
     }

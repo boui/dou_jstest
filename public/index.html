@@ -6,7 +6,9 @@
 
     <link rel="stylesheet" href="css/app.css">
     <link rel="stylesheet" href="css/growl.css">
-    <link rel="stylesheet" href="css/bootstrap.css" rel="stylesheet">
+    <link rel="stylesheet" href="http://netdna.bootstrapcdn.com/bootstrap/2.0.4/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="http://netdna.bootstrapcdn.com/font-awesome/3.2.1/css/font-awesome.css"
+          rel="stylesheet">
 
     <!-- from vendors-->
     <!--<script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>-->
@@ -24,14 +26,13 @@
     <script src="js/contacts/controllers.js"></script>
 
     <script src="js/search/directives.js"></script>
+
 </head>
 <body class="app-body">
-<div class="container " ng-app="contactsApp">
-    <div class="row">
-
-    </div>
+<div class="container " ng-app="contactsApp" ng-controller="EditModeController">
     <div class="row">
         <span class="span12">
+
             <span contact-list>
             </span>
         </span>

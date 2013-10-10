@@ -2,45 +2,93 @@
     <div class="container">
         <div class="row">
             <span search-contact class="pull-left span6"></span>
-            <span class=" span6 pull-right" groups-list></span>
+
+            <span class=" span6 pull-right" groups-list>
+            </span>
         </div>
         <div class="row">
-
-        <span class="span6">
-            <span
-  ng-repeat="contact in allContacts | inActiveGroups:allGroups:activeContact:hideDetails:showDetails | validDueToSearchInput:searchText:activeContact:hideDetails:showDetails" >
+            <span class="span3 pull-right">
+            <button class="btn-success btn btn-medium" ng-click="updateContactsMode()" ng-show="!!activeContact">
+                <span ng-show="editContactsMode"><i class="icon-edit"></i></span>
+                <span ng-hide="editContactsMode"><i class="icon-ok-sign"></i>Save</span>
+            </button>
+                </span>
+        </div>
+        <div class="row ">
+           <span class="span6">
+                <span ng-repeat="contact in allContacts | inActiveGroups:allGroups:activeContact:hideDetails:showDetails | validDueToSearchInput:searchText:activeContact:hideDetails:showDetails">
                     <span ng-class="{'unvisible':showContact()}">
                         <a href="#/" ng-click="showDetails(contact)">
                             <h5 class="span6" ng-bind="contact.name"></h5>
                         </a>
                     </span>
-            </span>
-        </span>
-                   <span class="span6">
-                        <div class="container" ng-show="!!activeContact">
-                            <div class="row">
-                                <h3 class="span6">{{ activeContact.name }}</h3>
-                            </div>
-                            <div class="row">
-                                <img ng-src="{{ activeContact.photoUrl }}" class="span1"/>
-                            </div>
-                            <div class="row" ng-repeat="phone in activeContact.contacts.phones">
-                                <span class="span2">{{ phone.title }}</span>
-                                <span class="span2">{{ phone.number }}</span>
-                            </div>
-                            <div class="row">
-                                <span class="span6" >
-                                    <h5>Contact is in following groups:</h5>
-                                </span>
-                            </div>
-                            <div class="row" ng-repeat="group in activeContact.groups">
+                </span>
+           </span>
 
-                                <span class="span2">{{ group.title }}</span>
-                            </div>
-                        </div>
-                       </span>
+           <span class="span6" ng-show="editContactsMode">
+                   <div class="container"
+                        ng-show="!!activeContact"
+                        ng-include src="'show.contact'"></div>
+           </span>
+            <span class="span6" ng-hide="editContactsMode">
+                        <div class="container"
+                             ng-show="!!activeContact"
+                             ng-include="'edit.contact'"></div>
+            </span>
         </div>
     </div>
 
 
 </div>
+<script type="text/ng-template" id="show.contact">
+    <div class="row">
+        <h3 class="span6">{{ activeContact.name }}</h3>
+    </div>
+    <div class="row">
+        <img ng-src="{{ activeContact.photoUrl }}" class="span1"/>
+    </div>
+    <div class="row" ng-repeat="phone in activeContact.contacts.phones">
+        <span class="span2">{{ phone.title }}</span>
+        <span class="span2">{{ phone.number }}</span>
+    </div>
+    <div class="row">
+     <span class="span6">
+          <h5>Contact is in following groups:</h5>
+     </span>
+    </div>
+    <div class="row" ng-repeat="group in activeContact.groups">
+        <span class="span2">{{ group.title }}</span>
+    </div>
+</script>
+
+
+<script type="text/ng-template" id="edit.contact">
+    <div class="row">
+        <input type="text" ng-model="activeContact.name" placeholder="Account name"/>
+    </div>
+    <div class="row">
+        <span class="span1"><img ng-src="{{ activeContact.photoUrl }}" class="span1"/></span>
+        <span class="span5"><button ng-click="browse()">Change photo</button></span>
+    </div>
+    <div class="row" ng-repeat="phone in activeContact.contacts.phones">
+        <span class="span2">{{ phone.title }}</span>
+        <span class="span2">
+        <input type="text" ng-model="phone.number" placeholder="+380501115533"/>
+            </span>
+    </div>
+    <div class="row">
+        <span class="span6">
+            <h5>Contact is in following groups:</h5>
+        </span>
+    </div>
+    <div class="row" ng-repeat="group in activeContact.groups">
+                  <span class="btn-group">
+                      <button class="btn">{{ group.title }}</button>
+                      <button class="btn btn-danger" ng-click="removeFromGroup(group)">
+                            <i class="icon-ban-circle" ></i>
+                      </button>
+                  </span>
+
+    </div>
+</script>
+

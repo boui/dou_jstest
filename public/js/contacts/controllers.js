@@ -6,6 +6,25 @@ contactsModule.controller('GroupsCtrl', function ($scope, $rootScope) {
         group.active = !group.active;
     }
 
+    var counter = 2;
+
+    $scope.newGroup = {}
+
+    $scope.addGroup = function(title){
+        counter+=1;
+        var groupToAdd = {title:title, id:counter,active:false};
+        $scope.newGroup.title = "";
+        $rootScope.allGroups.unshift(groupToAdd);
+    }
+
+    $scope.deleteGroup = function(group){
+        $rootScope.allGroups.splice( $rootScope.allGroups.indexOf(group), 1 );
+    }
+
+    $scope.saveGroup = function(group){
+        console.log("sent to server"+angular.toJson(group));
+    }
+
     $rootScope.allGroups = [
         {title: 'friends', id: 0, active: false},
         {title: 'love', id: 1, active: false},
@@ -14,6 +33,11 @@ contactsModule.controller('GroupsCtrl', function ($scope, $rootScope) {
 });
 
 contactsModule.controller('ContactsCtrl', function ($scope) {
+    $scope.templates = [{
+        'showContact':'show.contact.tmpl.html',
+        'editContact':'edit.contact.tmpl.html'
+    }]
+
     $scope.allContacts = [
         {
             id: 0,
@@ -61,6 +85,11 @@ contactsModule.controller('DetailsCtrl', function ($scope) {
     $scope.activeContact = null;
     $scope.showDetails = function (contact) {
         $scope.activeContact = contact;
+    }
+
+
+    $scope.removeFromGroup = function(group){
+        $scope.activeContact.groups.splice($scope.activeContact.groups.indexOf(group),1);
     }
 
     $scope.hideDetails = function () {

@@ -1,15 +1,41 @@
-
-<div class="container">
+<div class="container" >
     <div class="row">
-        <span class="span6">
+        <span class="span7">
             <div class="btn-toolbar">
 
-                <label ng-repeat="group in allGroups"
-                        ng-class="{'label':true, 'label-large':true, 'btn-info':group.active}"
-                        ng-click="selectGroup(group)">
-                    {{ group.title }}</label>
+                <div class="controls" >
+                    <button class="btn btn-medium" style="color: #149bdf" ng-click="updateGroupsMode()">
+                        <span ng-show="editGroupsMode"><i class="icon-edit"></i></span>
+                        <span ng-hide="editGroupsMode"><i class="icon-ok-sign"></i></span>
+                    </button>
+
+                      <span class="input-append control-group " ng-hide="editGroupsMode">
+
+                        <input class="form-control input-mini" type="text"placeholder="New group"
+                               ng-model="newGroup.title"/>
+                        <i class="icon-plus add-on btn" style="color:#149bdf"
+                            ng-click="addGroup(newGroup.title)"></i>
+                    </span>
+                </div>
+                <span ng-repeat="group in allGroups" class="controls-group">
+
+                        <button ng-show="editGroupsMode"
+                                ng-class="{'btn':true, 'btn-small':true, 'btn-info':group.active}"
+                                ng-click="selectGroup(group)">
+                            {{ group.title }}
+                        </button>
+                    <span class="input-append control-group">
+                        <input class="form-control input-mini" type="text" placeholder="Group name"
+                               ng-hide="editGroupsMode" ng-model="group.title" />
+                        <i class="icon-book add-on btn" style="color:#149bdf"
+                           ng-hide="editGroupsMode" ng-click="saveGroup(group)"></i>
+                        <i class="add-on icon-trash  btn" style="color: #942a25"
+                           ng-hide="editGroupsMode" ng-click="deleteGroup(group)"></i>
+                    </span>
+                </span>
+
             </div>
-        </span>
+    </span>
     </div>
 </div>
 
