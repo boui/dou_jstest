@@ -36,3 +36,28 @@
     margin-left: -5px !important;
 }
 
+.cool-bg{
+    background-color: #026873;
+    background-image: -webkit-linear-gradient(0deg, rgba(255,255,255,.07) 50%, transparent 50%),
+    -webkit-linear-gradient(0deg, rgba(255,255,255,.13) 50%, transparent 50%),
+    -webkit-linear-gradient(0deg, transparent 50%, rgba(255,255,255,.17) 50%),
+    -webkit-linear-gradient(0deg, transparent 50%, rgba(255,255,255,.19) 50%);
+    background-size: 13px, 29px, 37px, 53px;; background-color: #026873;
+    background-image: -webkit-linear-gradient(0deg, rgba(255,255,255,.07) 50%, transparent 50%),
+    -webkit-linear-gradient(0deg, rgba(255,255,255,.13) 50%, transparent 50%),
+    -webkit-linear-gradient(0deg, transparent 50%, rgba(255,255,255,.17) 50%),
+    -webkit-linear-gradient(0deg, transparent 50%, rgba(255,255,255,.19) 50%);
+    background-size: 13px, 29px, 37px, 53px;
+}
+
+.lined-bg{
+    background-color: #fff;
+    background-image:
+        -webkit-linear-gradient(0deg, transparent 79px, #BCD8DD 79px, #BCD8DD 81px, transparent 81px),
+        -webkit-linear-gradient(#eee .1em, transparent .1em);
+    background-size: 100% 1.2em;; background-color: #fff;
+    background-image:
+        -webkit-linear-gradient(0deg, transparent 79px, #BCD8DD 79px, #BCD8DD 81px, transparent 81px),
+        -webkit-linear-gradient(#eee .1em, transparent .1em);
+    background-size: 100% 1.2em;
+}

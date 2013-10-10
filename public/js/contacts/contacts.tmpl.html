@@ -33,7 +33,7 @@
         <div class="row ">
            <span class="span6">
                 <span ng-repeat="contact in allContacts | inActiveGroups:allGroups:activeContact:hideDetails:showDetails | validDueToSearchInput:searchText:activeContact:hideDetails:showDetails">
-                    <span ng-class="{'active':isActive(contact.id)}">
+                    <span ng-class="{'active':isActive(contact.id),'span4':true}">
                         <a href="#/" ng-click="showDetails(contact)">
                             <h5 class="span6" ng-bind="contact.name"></h5>
                         </a>
