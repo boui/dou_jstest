@@ -1,6 +1,6 @@
+import com.mojolly.scalate.ScalatePlugin._
 import sbt._
 import Keys._
-import com.mojolly.scalate.ScalatePlugin._
 import ScalateKeys._
 import com.earldouglas.xsbtwebplugin.WebPlugin.webSettings
 
@@ -28,7 +28,8 @@ object ApplicationBuild extends Build {
         "org.scalatra" %% "scalatra-scalate" % ScalatraVersion,
         "org.scalatra" %% "scalatra-json" % ScalatraVersion,
         "org.json4s"   %% "json4s-jackson" % "3.2.4",
-        "org.scalatra" %% "scalatra-specs2" % ScalatraVersion % "test"
+        "org.scalatra" %% "scalatra-specs2" % ScalatraVersion % "test",
+        "org.eclipse.jetty" % "jetty-webapp" % "8.1.8.v20121106" % "container"
       ),
       scalateTemplateConfig in Compile <<= (sourceDirectory in Compile){ base =>
         Seq(
