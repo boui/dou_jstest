@@ -2,11 +2,12 @@
 
 var app = angular.module('contactsApp');
 
-app.filter('inActiveGroups', function () {
+app.filter('inActiveGroups', function ($rootScope) {
     return function (contacts, groups, selectedContact, hideFn, showFn) {
+
         var activeGroups = _.filter(groups, function (item) {return item.active});
         if (_.isEmpty(activeGroups)){
-            if(!selectedContact) showFn(contacts[0]);
+            if(!selectedContact && !!contacts) showFn(contacts[0]);
             return contacts;
         }
 
@@ -15,18 +16,20 @@ app.filter('inActiveGroups', function () {
             return _.intersection(
                         _.map(c.groups, function(group){return group.id}),
                         _.map(activeGroups,function(group){return group.id}))
-            .length > 0
+            .length === activeGroups.length
         });
 
         var result = _.isEmpty(filtered) ? null:filtered;
         if(result && !_.contains(result, selectedContact)) hideFn();
-        if(result) showFn(result[0]);
+//        if(result) showFn(result[0]);
+
+        $rootScope.noneFound = _.isEmpty(result);
 
         return result;
     }
 });
 
-app.filter('validDueToSearchInput', function(){
+app.filter('validDueToSearchInput', function($rootScope){
     return function(contacts, searchText, selectedContact, hideFn, showFn){
         var patt = new RegExp(searchText,"i");
 
@@ -40,17 +43,19 @@ app.filter('validDueToSearchInput', function(){
         if(selectedContact && !_.contains(_.map(result, function(c){return c.id}), selectedContact.id)) hideFn();
         if(!!result && !!searchText) showFn(result[0]);
 
+        $rootScope.noneFound = _.isEmpty(result);
         return result;
     }
 })
 
-app.filter('notAdded', function () {
+app.filter('notAdded', function ($rootScope) {
     return function (allGroups, activeUsersGroups) {
         var filtered =  _.filter(allGroups, function(group){
             return !_.contains(
                 _.map(activeUsersGroups, function(g){ return g.id}),
                     group.id);
-        })
+        });
+        $rootScope.noneFound =_.isEmpty(filtered);
         return filtered;
     }
 });

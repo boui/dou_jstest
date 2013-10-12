@@ -1,3 +1,6 @@
+body {
+    overflow-x: hidden;
+}
 
 .unvisible{
     display: none;
@@ -60,4 +63,36 @@
         -webkit-linear-gradient(0deg, transparent 79px, #BCD8DD 79px, #BCD8DD 81px, transparent 81px),
         -webkit-linear-gradient(#eee .1em, transparent .1em);
     background-size: 100% 1.2em;
+}
+
+@-webkit-keyframes animatedBackground {
+     from { background-position: 0 0; }
+     to { background-position: 100% 0; }
+ }
+
+#animate-area	{
+    width: 100%;
+    height: 200px;
+    background-image: url("/img/bg-clouds.png");
+    background-position: 0px 0px;
+    background-repeat: repeat-x;
+
+    animation: animatedBackground 40s linear infinite;
+    -ms-animation: animatedBackground 40s linear infinite;
+    -moz-animation: animatedBackground 40s linear infinite;
+    -webkit-animation: animatedBackground 40s linear infinite;
+}
+
+.contact-name a {
+    color: #d3d3d3;
+}
+
+.contact-name a:hover, .contact-name.active a{
+    font-family: 'Knewave';
+   color: #ffffff;
+}
+
+span.contact-name{
+    border-radius: 40px;
+    color: #ffffff;
 }

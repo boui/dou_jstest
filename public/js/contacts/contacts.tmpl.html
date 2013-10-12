@@ -1,126 +1,151 @@
 <div class="row" ng-controller="DetailsCtrl">
     <div class="container">
-        <div class="row" style="margin-bottom: 20px">
-            <span class="span3 pull-left">
-                <img src="https://cdn1.iconfinder.com/data/icons/all_google_icons_symbols_by_carlosjj-du/128/notebook.png" class="span2"/>
-            </span>
+
+        <div class="row" >
             <span class="span6" groups-list></span>
         </div>
 
-        <div class="row">
-            <span search-contact class="span3"></span>
-
-            <span class="span3">
-                <button ng-click="addContact()" class="btn">
-                    <i class="icon-plus" style="color: #149bdf"></i>
-                </button>
-                <button class="btn" ng-click="updateContactsMode()" ng-show="!!activeContact">
-                    <span ng-show="editContactsMode"><i class="icon-edit" style="color: #149bdf"></i></span>
-                    <span ng-hide="editContactsMode"><i class="icon-step-backward" style="color: #149bdf"></i></span>
-                </button>
-            </span>
-            <span class="span3 btn-group">
-
-                <button class="btn add-on" ng-hide="editContactsMode" ng-click="saveContact(activeContact)">
-                    <i class="icon-book" style="color: #149bdf"></i>
-                </button>
-                <button class="btn add-on" ng-hide="editContactsMode" ng-click="deleteContact(activeContact)">
-                    <i class="icon-trash" style="color: #942a25"></i>
-                </button>
-
-                </span>
-        </div>
-        <div class="row ">
-           <span class="span6">
-                <span ng-repeat="contact in allContacts | inActiveGroups:allGroups:activeContact:hideDetails:showDetails | validDueToSearchInput:searchText:activeContact:hideDetails:showDetails">
-                    <span ng-class="{'active':isActive(contact.id),'span4':true}">
-                        <a href="#/" ng-click="showDetails(contact)">
-                            <h5 class="span6" ng-bind="contact.name"></h5>
-                        </a>
+        <div class="row" style="margin-bottom: 20px">
+            <span class="span4">
+            <div class="container">
+                <div class="row">
+                    <span class="span6">
+                        <span style="font-family: 'Mr De Haviland'; font-size: 4em; color:white">
+                            Contacts:
+                        </span>
+                        <button ng-click="addContact()" class="btn">
+                            <i class="icon-plus" style="color: #149bdf"></i>
+                        </button>
+                        <button class="btn" ng-click="updateContactsMode()" ng-show="!!activeContact">
+                            <span ng-show="editContactsMode"><i class="icon-edit" style="color: #149bdf"></i></span>
+                            <span ng-hide="editContactsMode"><i class="icon-step-backward"
+                                                                style="color: #149bdf"></i></span>
+                        </button>
                     </span>
-                </span>
-           </span>
+                </div>
+                <div class="row">
+                    <span search-contact></span>
+                </div>
+                <div class="row ">
+                   <span class="span6">
+                        <span ng-repeat="contact in allContacts | inActiveGroups:allGroups:activeContact:hideDetails:showDetails | validDueToSearchInput:searchText:activeContact:hideDetails:showDetails">
+                            <span ng-class="{'active':isActive(contact.id),'span4':true,'contact-name':true}">
+                                <a href="#/" ng-click="showDetails(contact)">
+                                    <span class="span6"
+                                          style=" font-weight: 400; font-style: normal; font-family: 'Knewave'; font-size: 18px;"
+                                          ng-bind="contact.name"></span>
+                                </a>
+                            </span>
+                        </span>
+                   </span>
+                </div>
+            </div>
+             </span>
 
-           <span class="span6" ng-show="editContactsMode">
-                   <div class="container"
-                        ng-show="!!activeContact"
-                        ng-include src="'show.contact'"></div>
-           </span>
-            <span class="span6" ng-hide="editContactsMode">
+
+            <span class="span8 lined-bg" ng-hide="editContactsMode" style="border-radius: 20px;">
                         <div class="container"
                              ng-show="!!activeContact"
-                             ng-include="'edit.contact'"></div>
+                             ng-include="'edit.contact'" style="padding:10px;"></div>
             </span>
+
+            <span class="span8 lined-bg" ng-show="editContactsMode" style="border-radius: 20px;">
+                   <div class="container"
+                        ng-show="!!activeContact"
+                        ng-include src="'show.contact'" style="padding:10px; "></div>
+           </span>
+
+            <span ng-show="noneFound">
+            <span class="span2">
+                <!--<img src="https://cdn3.iconfinder.com/data/icons/cat-force/128/cat_rascal.png"/>-->
+                <img src="https://cdn3.iconfinder.com/data/icons/cat-force/128/cat_hungry.png"/>
+            </span>
+            <span  class="span6" style="font-family: 'Mr De Haviland'; font-size: 4em; color:white; margin-top: 60px ">
+                Sorry, no one found (..
+            </span>
+                </span>
+
         </div>
     </div>
 
 
 </div>
+
 <script type="text/ng-template" id="show.contact">
     <div class="row">
-        <span class="span2"><h5>Contact:</h5></span>
-        <h3 class="span6">{{ activeContact.name }}</h3>
+        <!--<span class="pull-right span8" style="font-family: 'Mr De Haviland'; font-size: 40px;">Detailed information</span>-->
+    </div>
+    <div class="row">
+        <span class="span1" style="font-family: 'Mr De Haviland'; font-size: 25px;">Name:</span>
+        <span class="span5" style="color: #149bdf; font-size:20px;">{{ activeContact.name }}</span>
     </div>
     <div class="row">
         <!--<img ng-src="{{ activeContact.photoUrl }}" class="span1"/>-->
     </div>
-    <div class="row">
-        <span class="span2"><h5>Email:</h5></span>
-        <span class="span2">{{activeContact.email}}</span>
+    <div class="row" ng-show="activeContact.email">
+        <span class="span1" style="font-family: 'Mr De Haviland'; font-size: 25px;">Email:</span>
+        <span class="span5" style="color: #363636">{{activeContact.email}}</span>
     </div>
-    <div class="row">
-        <span class="span2"><h5>Phone number:</h5></span>
-        <span class="span2">{{activeContact.phone}}</span>
+    <div class="row" ng-show="activeContact.phone">
+        <span class="span1" style="font-family: 'Mr De Haviland'; font-size: 25px;">Phone:</span>
+        <span class="span5" style="color: #363636">{{activeContact.phone}}</span>
     </div>
-    <div class="row">
-     <span class="span6">
-          <h5>Contact is in following groups:</h5>
+    <div class="row" ng-show="activeContact.groups&&activeContact.groups.length>0">
+     <span class="span7" style="font-family: 'Mr De Haviland'; font-size: 25px; border-top:#dddddd dotted 5px;">
+          Contact groups:
      </span>
     </div>
-    <div class="row" ng-repeat="group in activeContact.groups">
-        <span class="span2">{{ group.title }}</span>
+    <div class="row">
+        <span class=" span6 offset1">
+        <span class="label label-info" style="color: white; margin-right:5px; " ng-repeat="group in activeContact.groups">{{ group.title }}</span>
+            </span>
     </div>
 </script>
 
 
 <script type="text/ng-template" id="edit.contact">
-    <div class="row">
-        <span class="span2"><h5>Contact:</h5></span>
-        <input type="text" ng-model="activeContact.name" placeholder="Account name"/>
-    </div>
-    <div class="row">
-        <!--<span class="span5"><button ng-click="browse()">Change photo</button></span>-->
-    </div>
-    <div class="row">
-        <span class="span2"><h5>Email:</h5></span>
-        <input type="text" ng-model="activeContact.email" placeholder="trololo@gmail.com"/>
-    </div>
-    <div class="row">
-        <span class="span2"><h5>Phone number:</h5></span>
-        <input type="text" ng-model="activeContact.phone" placeholder="+380501115533"/>
-    </div>
-    <div class="row">
-        <span class="span6">
-            <h5>Contact is in following groups:</h5>
+    <div class="row" style="margin-bottom:10px;">
+        <span class="span2 btn-group">
+            <button class="btn add-on" ng-click="saveContact(activeContact)">
+                <i class="icon-book" style="color: #149bdf"></i>
+            </button>
+            <button class="btn add-on" ng-click="deleteContact(activeContact)">
+                <i class="icon-trash" style="color: #942a25"></i>
+            </button>
         </span>
     </div>
     <div class="row">
-        <span class="controls-row">
-
-                <span class="btn-group span2" ng-repeat="group in activeContact.groups" >
+        <span class="span2" style="font-family: 'Mr De Haviland'; font-size:25px; ">Name:</span>
+        <input type="text" ng-model="activeContact.name" placeholder="Account name"/>
+    </div>
+    <div class="row">
+        <span class="span2" style="font-family: 'Mr De Haviland'; font-size:25px; ">Email:</span>
+        <input type="text" ng-model="activeContact.email" placeholder="trololo@gmail.com"/>
+    </div>
+    <div class="row">
+        <span class="span2" style="font-family: 'Mr De Haviland'; font-size:25px; ">Phone:</span>
+        <input type="text" ng-model="activeContact.phone" placeholder="+380501115533"/>
+    </div>
+    <div class="row">
+        <span class="span6" style="font-family: 'Mr De Haviland';font-size:25px;">
+            Contact groups:
+        </span>
+    </div>
+    <div class="row" >
+        <span class="controls-row span6">
+                <span class="btn-group" ng-repeat="group in activeContact.groups" style="margin-right:5px">
                       <button class="btn">{{ group.title }}</button>
                       <button class="btn btn-danger" ng-click="removeFromGroup(group)">
                           <i class="icon-ban-circle"></i>
                       </button>
                 </span>
             </span>
-
     </div>
     <div class="row">
-        <span class="span6">
-        <h5>Add contact to group:</h5>
+        <span class="span6" style="font-family: 'Mr De Haviland'; font-size:25px; ">
+                Add contact to group:
             </span>
-        </div>
+    </div>
 
     <div class="row">
             <span class="btn-group group-info span1" ng-repeat="group in allGroups | notAdded:activeContact.groups">

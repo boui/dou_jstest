@@ -1,16 +1,12 @@
 # Routes
 # This file defines all application routes (Higher priority routes first)
-# ~~~~
 
-# Obtain require.js with built-in knowledge of how webjars resources can be
-# resolved
-GET     /lib/require.js             controllers.WebJarAssets.requirejs
-
-# Enable webjar based resources to be returned
-GET     /webjars/*file              controllers.WebJarAssets.at(file)
+GET     /contacts                  controllers.Application.getContacts
 
 # Home page
-GET     /                           controllers.Assets.at(path="/public", file="index.html")
+GET     /                          controllers.Assets.at(path="/public", file="index.html")
 
 # Map the JS resource paths
-GET     /*file                      controllers.Assets.at(path="/public", file)
+GET     /js/*file                  controllers.Assets.at(path="/public/js/", file)
+GET     /css/*file                 controllers.Assets.at(path="/public/css/", file)
+GET     /img/*file                 controllers.Assets.at(path="/public/img/", file)
