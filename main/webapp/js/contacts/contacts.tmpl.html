@@ -5,12 +5,12 @@
             <span class="span6" groups-list></span>
         </div>
 
-        <div class="row" style="margin-bottom: 20px">
+        <div class="row" style="margin-bottom: 20px;">
             <span class="span4">
             <div class="container">
                 <div class="row">
-                    <span class="span6">
-                        <span style="font-family: 'Mr De Haviland'; font-size: 4em; color:white">
+                    <span class="span4">
+                        <span style="font-family: 'Mr De Haviland'; font-size: 3em; color:white">
                             Contacts:
                         </span>
                         <button ng-click="addContact()" class="btn">
@@ -26,17 +26,15 @@
                 <div class="row">
                     <span search-contact></span>
                 </div>
-                <div class="row ">
-                   <span class="span6">
-                        <span ng-repeat="contact in allContacts | inActiveGroups:allGroups:activeContact:hideDetails:showDetails | validDueToSearchInput:searchText:activeContact:hideDetails:showDetails">
-                            <span ng-class="{'active':isActive(contact.id),'span4':true,'contact-name':true}">
-                                <a href="#/" ng-click="showDetails(contact)">
-                                    <span class="span6"
-                                          style=" font-weight: 400; font-style: normal; font-family: 'Knewave'; font-size: 18px;"
-                                          ng-bind="contact.name"></span>
-                                </a>
-                            </span>
+                <div class="row " >
+                   <span id="contact-names" class="span2 scrollbar">
+                        <span  ng-repeat="contact in allContacts | inActiveGroups:allGroups:activeContact:hideDetails:showDetails | validDueToSearchInput:searchText:activeContact:hideDetails:showDetails">
+                            <div  ng-class="{'active':isActive(contact.id),'contact-name':true}">
+                                    <span style=" font-weight: 600; font-style: normal; font-size: 16px; z-index: 20"
+                                          ng-bind="contact.name"  ng-click="showDetails(contact)"></span>
+                            </div>
                         </span>
+                       <div class="force-overflow"></div>
                    </span>
                 </div>
             </div>
@@ -76,22 +74,22 @@
         <!--<span class="pull-right span8" style="font-family: 'Mr De Haviland'; font-size: 40px;">Detailed information</span>-->
     </div>
     <div class="row">
-        <span class="span1" style="font-family: 'Mr De Haviland'; font-size: 25px;">Name:</span>
+        <span class="span1" >Name:</span>
         <span class="span5" style="color: #149bdf; font-size:20px;">{{ activeContact.name }}</span>
     </div>
     <div class="row">
         <!--<img ng-src="{{ activeContact.photoUrl }}" class="span1"/>-->
     </div>
     <div class="row" ng-show="activeContact.email">
-        <span class="span1" style="font-family: 'Mr De Haviland'; font-size: 25px;">Email:</span>
+        <span class="span1" >Email:</span>
         <span class="span5" style="color: #363636">{{activeContact.email}}</span>
     </div>
     <div class="row" ng-show="activeContact.phone">
-        <span class="span1" style="font-family: 'Mr De Haviland'; font-size: 25px;">Phone:</span>
+        <span class="span1" >Phone:</span>
         <span class="span5" style="color: #363636">{{activeContact.phone}}</span>
     </div>
     <div class="row" ng-show="activeContact.groups&&activeContact.groups.length>0">
-     <span class="span7" style="font-family: 'Mr De Haviland'; font-size: 25px; border-top:#dddddd dotted 5px;">
+     <span class="span7" style=" border-top:#dddddd dotted 5px;">
           Contact groups:
      </span>
     </div>
@@ -115,19 +113,19 @@
         </span>
     </div>
     <div class="row">
-        <span class="span2" style="font-family: 'Mr De Haviland'; font-size:25px; ">Name:</span>
+        <span class="span2" >Name:</span>
         <input type="text" ng-model="activeContact.name" placeholder="Account name"/>
     </div>
     <div class="row">
-        <span class="span2" style="font-family: 'Mr De Haviland'; font-size:25px; ">Email:</span>
+        <span class="span2" >Email:</span>
         <input type="text" ng-model="activeContact.email" placeholder="trololo@gmail.com"/>
     </div>
     <div class="row">
-        <span class="span2" style="font-family: 'Mr De Haviland'; font-size:25px; ">Phone:</span>
+        <span class="span2" >Phone:</span>
         <input type="text" ng-model="activeContact.phone" placeholder="+380501115533"/>
     </div>
     <div class="row">
-        <span class="span6" style="font-family: 'Mr De Haviland';font-size:25px;">
+        <span class="span6" style=" border-top:#dddddd dotted 5px;">
             Contact groups:
         </span>
     </div>
@@ -142,7 +140,7 @@
             </span>
     </div>
     <div class="row">
-        <span class="span6" style="font-family: 'Mr De Haviland'; font-size:25px; ">
+        <span class="span6" >
                 Add contact to group:
             </span>
     </div>
