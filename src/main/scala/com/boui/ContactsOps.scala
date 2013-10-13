@@ -12,7 +12,8 @@ import collection.mutable.ArrayBuffer
 trait ContactsOps {
   self: Application =>
   var contactList = ArrayBuffer(TestData.IgorPetruk, TestData.LittlePonny);
-  var counter = 3
+
+  var c = 3
   get("/contact/all"){
      contentType = formats("json")
      contactList
@@ -32,20 +33,24 @@ trait ContactsOps {
           x
         }
       }
+      bodyContact
     } else {
       println("new")
-      counter+=1
+      c+=1
       val contact:Contact = bodyContact.copy(
-        id = counter
+        id = c
       )
 
       contactList += contact
+      contact
     }
 
 
   }
 
   delete("/contact/:id"){
-    val id = params("id")
+    val id = Integer.parseInt(params("id"))
+    println("deleting "+id)
+    contactList = contactList.filter(x=> x.id != id)
   }
 }

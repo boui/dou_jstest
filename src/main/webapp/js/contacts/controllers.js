@@ -7,37 +7,58 @@ contactsModule.controller('GroupsCtrl', function ($scope, $rootScope, $http) {
     }
 
     $scope.newGroup = {};
-    var counter = 2;
     $scope.addGroup = function (title) {
         if (title && (!$rootScope.allGroups ||
             _.filter($rootScope.allGroups, function (g) {
                 return g.title === title;
             })
                 .length === 0)) {
-            counter += 1;
-            var groupToAdd = {title: title, id: counter, active: false};
-            $scope.newGroup.title = "";
-            $rootScope.allGroups.unshift(groupToAdd);
+            var groupToAdd = {title: title, id: -1, active: false};
+            $scope.saveGroup(groupToAdd);
         }
     }
 
     $scope.deleteGroup = function (group) {
-        $rootScope.allGroups.splice($rootScope.allGroups.indexOf(group), 1);
+        $http({method:"DELETE", url:"/rest/group/"+group.id})
+            .success(function(){
+                $rootScope.allGroups.splice($rootScope.allGroups.indexOf(group), 1);
+            }).error(function(data, status){
+//                todo: alert
+            })
     }
 
     $scope.saveGroup = function (group) {
-        console.log("sent to server" + angular.toJson(group));
+        $http({method:"POST", url:"/rest/group", data:group})
+            .success(function(data){
+                $scope.newGroup.title = "";
+                var existent = _.find($rootScope.allGroups, function(gr){ return gr.id == group.id})
+                if(existent){
+                    _.map(
+                        $rootScope.allGroups, function(c){
+                            if(c.id == existent.id){ return angular.copy(c,existent);}
+                        });
+                } else {
+                    $rootScope.allGroups.unshift(data);
+                }
+            }
+        ).error(function(data, status){
+//                    todo: add alerts
+            });
     }
 
+    $scope.getAllGroups = function(){
+        $http({method: 'GET', url: '/rest/group/all'})
+            .success(function (data, status) {
+                $rootScope.allGroups = data;
+            })
+            .error(function (data, status) {
+                //todo: alerts
+            });
+    }
 
-    $http({method: 'GET', url: '/rest/group/all'})
-        .success(function (data, status) {
-            $rootScope.allGroups = data;
-        })
-        .error(function (data, status) {
-            //todo: alerts
-        });
-});
+        $scope.getAllGroups();
+   }
+);
 
 contactsModule.controller('ContactsCtrl', function ($scope, $http) {
     $scope.getAllContacts =  function(){
@@ -60,7 +81,7 @@ contactsModule.controller('DetailsCtrl', function ($scope, $rootScope, $http) {
 
     $scope.addContact = function () {
         if (!$scope.newContactProcessing) {
-            $scope.$parent.allContacts.unshift({id:-1, name: 'New contact'});
+            $scope.$parent.allContacts.unshift({id:-1, name: 'New contact',contacts:{phone:"", email:""}, groups:[]});
             $scope.activeContact = $scope.$parent.allContacts[0];
             $scope.newContactProcessing = true;
         }
@@ -73,7 +94,7 @@ contactsModule.controller('DetailsCtrl', function ($scope, $rootScope, $http) {
         $http({method:"POST", url:"/rest/contact", data:JSON.stringify(contact)})
             .success(function(data, status){
                 var existent = _.find($rootScope.allContacts, function(c){
-                    return c.id = data.id
+                    return c.id == data.id
                 });
                 if(existent){
                     $rootScope.allContacts(data)
@@ -90,11 +111,17 @@ contactsModule.controller('DetailsCtrl', function ($scope, $rootScope, $http) {
     }
 
     $scope.deleteContact = function (contact) {
-        $scope.newContactProcessing = false;
-        if ($scope.$parent.allContacts.indexOf(contact) != -1) {
-            $scope.$parent.allContacts.splice($scope.$parent.allContacts.indexOf(contact), 1);
-            $scope.activeContact = null
-        }
+        $http({method:"DELETE", url:"/rest/contact/"+contact.id})
+            .success(function(data, status){
+                $scope.newContactProcessing = false;
+                if ($scope.$parent.allContacts.indexOf(contact) != -1) {
+                    $scope.$parent.allContacts.splice($scope.$parent.allContacts.indexOf(contact), 1);
+                    $scope.activeContact = null
+                }
+        }).error(function(data, status){
+                //todo: status
+            })
+
     }
 
     $scope.isActive = function (id) {
