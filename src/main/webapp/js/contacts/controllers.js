@@ -93,16 +93,15 @@ contactsModule.controller('DetailsCtrl', function ($scope, $rootScope, $http) {
         $scope.newContactProcessing = false;
         $http({method:"POST", url:"/rest/contact", data:JSON.stringify(contact)})
             .success(function(data, status){
-                var existent = _.find($rootScope.allContacts, function(c){
-                    return c.id == data.id
-                });
+                var existent = _.find($rootScope.allContacts, function(c){return c.id == data.id});
                 if(existent){
-                    $rootScope.allContacts(data)
-                } else {
                     _.map(
                         $rootScope.allContacts, function(c){
-                            if(c.id = existent.id){ return angular.copy(c,existent);}
-                    });
+                            if(c.id == existent.id){ return angular.copy(c,existent);}
+                            else {c}
+                        });
+                } else {
+                    $rootScope.allContacts.unshift(data);
                 }
             })
             .error()

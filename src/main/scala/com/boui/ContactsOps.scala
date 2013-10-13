@@ -42,6 +42,7 @@ trait ContactsOps {
       )
 
       contactList += contact
+
       contact
     }
 
