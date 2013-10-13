@@ -7,8 +7,9 @@ import collection.mutable.ArrayBuffer
  * Date: 10/10/13
  */
 object Models {
-  case class Contact(id:Int, name:String, contacts:Map[String, String], groups:ArrayBuffer[Group])
-  case class Group(id:Int, title:String, active:Boolean)
+  case class ContactInfo(phone:String, email:String)
+  case class Contact(id:Integer, name:String, contacts:ContactInfo, groups:List[Group])
+  case class Group(id:Integer, title:String, active:Boolean)
 }
 
 
@@ -21,10 +22,10 @@ object TestData {
   val bestFriends = new Group(2, "Tinkie Winkies", false)
 
   val IgorPetruk =
-    new Contact(0, "Igor Lala Petruk", Map(("phone", "+80982983773"), ("email", "sdjk@slkdjf")),
-      ArrayBuffer(friendsGroup, bestFriends))
+    new Contact(0, "Igor Lala Petruk", ContactInfo("+80982983773", "sdjk@slkdjf"),
+      List(friendsGroup, bestFriends))
 
   val LittlePonny =
-    new Contact(1, "Little Sleepy Ponny", Map(("phone", "+555555555"), ("email","sleepy@cloud.com")),
-      ArrayBuffer(workGroup))
+    new Contact(1, "Little Sleepy Ponny", ContactInfo("+555555555", "sleepy@cloud.com"),
+      List(workGroup))
 }
