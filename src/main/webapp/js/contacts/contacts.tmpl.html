@@ -1,7 +1,7 @@
 <div class="row" ng-controller="DetailsCtrl">
     <div class="container">
 
-        <div class="row" >
+        <div class="row" style="border-bottom: #bbbbbb dotted 4px; margin-bottom: 10px;">
             <span class="span6" groups-list></span>
         </div>
 
@@ -80,13 +80,13 @@
     <div class="row">
         <!--<img ng-src="{{ activeContact.photoUrl }}" class="span1"/>-->
     </div>
-    <div class="row" ng-show="activeContact.email">
+    <div class="row" ng-show="activeContact.contacts.email">
         <span class="span1" >Email:</span>
-        <span class="span5" style="color: #363636">{{activeContact.email}}</span>
+        <span class="span5" style="color: #363636">{{activeContact.contacts.email}}</span>
     </div>
-    <div class="row" ng-show="activeContact.phone">
+    <div class="row" ng-show="activeContact.contacts.phone">
         <span class="span1" >Phone:</span>
-        <span class="span5" style="color: #363636">{{activeContact.phone}}</span>
+        <span class="span5" style="color: #363636">{{activeContact.contacts.phone}}</span>
     </div>
     <div class="row" ng-show="activeContact.groups&&activeContact.groups.length>0">
      <span class="span7" style=" border-top:#dddddd dotted 5px;">
@@ -118,11 +118,11 @@
     </div>
     <div class="row">
         <span class="span2" >Email:</span>
-        <input type="text" ng-model="activeContact.email" placeholder="trololo@gmail.com"/>
+        <input type="text" ng-model="activeContact.contacts.email" placeholder="trololo@gmail.com"/>
     </div>
     <div class="row">
         <span class="span2" >Phone:</span>
-        <input type="text" ng-model="activeContact.phone" placeholder="+380501115533"/>
+        <input type="text" ng-model="activeContact.contacts.phone" placeholder="+380501115533"/>
     </div>
     <div class="row">
         <span class="span6" style=" border-top:#dddddd dotted 5px;">

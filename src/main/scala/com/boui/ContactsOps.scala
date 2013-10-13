@@ -1,6 +1,8 @@
 package com.boui
 
+import _root_.models.TestData
 import com.boui.Application
+import collection.mutable.ArrayBuffer
 
 /**
  * User: boui
@@ -8,11 +10,9 @@ import com.boui.Application
  */
 trait ContactsOps {
   self: Application =>
-//  get("/contactsService/all"){
-//    contentType = formats("json")
-//    asyncAuth{ session =>
-//      "ok"
-//    }
-//  }
 
+  get("/contact/all"){
+     contentType = formats("json")
+     List(TestData.IgorPetruk, TestData.LittlePonny)
+  }
 }

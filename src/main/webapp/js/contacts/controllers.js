@@ -37,47 +37,16 @@ contactsModule.controller('GroupsCtrl', function ($scope, $rootScope) {
 });
 
 contactsModule.controller('ContactsCtrl', function ($scope, $http) {
-var data =         [
-    {
-        id: 0,
-        name: 'Vasya Petrov',
-        photoUrl: 'http://m3.c.lnkd.licdn.com/mpr/mpr/shrink_80_80/p/7/000/1fb/091/15b5b3f.jpg',
-        groups: [
-            {title: 'work', id: 2, active: false}
-        ],
-        contacts: {
-            email: 'vaider@gmail.com',
-            phone: '+380505555555'
-        }
-    },
-    {
-        id: 1,
-        name: 'Dart Vaider',
-        photoUrl: 'http://m1.c.lnkd.licdn.com/mpr/mpr/shrink_60_60/p/3/000/0bf/12b/25cb8e8.jpg',
-        groups: [
-            {title: 'friends', id: 0, active: false},
-            {title: 'love', id: 1, active: false}
-        ],
-        contacts: {
-            email: 'vasya@gmail.com',
-            phone: '+380505555555'
-        }
-    }
-];
+    $http({method:'GET', url:'/rest/contact/all'})
+        .success(function(data, status){
+                $scope.allContacts = data;
+        })
+        .error(function(data, status){
+            //todo: alerts
+        })
 
-
-//    $http({method:'GET', url:'/contacts'}).success(
-//        function(data, status){
-////            console.log(data)
-            $scope.allContacts = data;
-//        }
-//    )
-
-    $scope.hideContact = function () {
-        return true;
-    }
 });
-//
+
 contactsModule.controller('DetailsCtrl', function ($scope, $rootScope) {
     $scope.activeContact = null;
     $scope.newContactProcessing = false;
