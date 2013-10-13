@@ -1,3 +1,4 @@
+import com.boui._
 import org.scalatra._
 import javax.servlet.ServletContext
 
