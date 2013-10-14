@@ -17,7 +17,7 @@ object ApplicationBuild extends Build {
   lazy val project = Project (
   "doujs_test",
     file("."),
-    settings = Defaults.defaultSettings ++ webSettings ++ Seq(
+    settings = Seq(com.typesafe.startscript.StartScriptPlugin.startScriptForClassesSettings: _*) ++ Defaults.defaultSettings ++ webSettings ++ Seq(
       name := appName,
       version := appVersion,
       scalaVersion := ScalaVersion,
