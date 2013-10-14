@@ -2,7 +2,7 @@
 import sbt._
 import Keys._
 import com.earldouglas.xsbtwebplugin.WebPlugin.webSettings
-
+import com.typesafe.sbt.SbtStartScript
 
 
 object ApplicationBuild extends Build {
@@ -17,7 +17,7 @@ object ApplicationBuild extends Build {
   lazy val project = Project (
   "doujs_test",
     file("."),
-    settings = Seq(com.typesafe.startscript.StartScriptPlugin.startScriptForClassesSettings: _*) ++ Defaults.defaultSettings ++ webSettings ++ Seq(
+    settings = Seq(SbtStartScript.startScriptForClassesSettings: _*) ++ Defaults.defaultSettings ++ webSettings ++ Seq(
       name := appName,
       version := appVersion,
       scalaVersion := ScalaVersion,
